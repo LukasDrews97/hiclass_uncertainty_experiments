@@ -1,0 +1,12 @@
+md5: 5e79a1ba3ee67faeb94762a3e956a2a0
+frozen: true
+deps:
+- checksum: '"045e3c88883d216419bb49e01181a001-92"'
+  size: 765270866
+  hash: md5
+  path: https://files.consumerfinance.gov/ccdb/complaints.csv.zip
+outs:
+- md5: cb2a3fbca498d4071ed7a15720221418
+  size: 765270866
+  hash: md5
+  path: complaints.csv.zip
