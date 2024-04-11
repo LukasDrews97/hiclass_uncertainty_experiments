@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+hiclass = {git = "https://github.com/LukasDrews97/hiclass.git@uncertainty", editable = true}
+dvc = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
