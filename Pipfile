@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 hiclass = {git = "https://github.com/LukasDrews97/hiclass.git@uncertainty", editable = true}
 dvc = "*"
+pandas = "2.2.1"
+memory-profiler = "0.61.0"
+scikit-learn = "1.4.1.post1"
+catboost = "*"
 
 [dev-packages]
 
