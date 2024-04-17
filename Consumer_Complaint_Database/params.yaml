@@ -4,8 +4,8 @@ models: ['LocalClassifierPerParentNode', 'LocalClassifierPerNode']
 base_classifiers: ['LogisticRegression']
 #base_classifiers: ['LogisticRegression', 'MultinomialNB', 'RandomForestClassifier', 'KNeighborsClassifier', 'DecisionTreeClassifier']
 
-calibration_methods: ['sigmoid', 'isotonic', 'None']
-#calibration_methods: ['sigmoid', 'isotonic', 'beta', 'ivap', 'cvap', 'None']
+#calibration_methods: ['cvap']
+calibration_methods: ['sigmoid', 'isotonic', 'beta', 'ivap', 'cvap', 'None']
 
 random_states: [100]
 #random_states: [100, 101, 102]

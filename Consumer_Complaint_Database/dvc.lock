@@ -394,9 +394,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   evaluate@LogisticRegression-LocalClassifierPerParentNode-isotonic-100-0.7-0.2:
     cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
       --calibration_method isotonic --random_state 100 --train_split 0.7 --cal_split
@@ -412,9 +412,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   evaluate@LogisticRegression-LocalClassifierPerParentNode-None-100-0.7-0.2:
     cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
       --calibration_method None --random_state 100 --train_split 0.7 --cal_split 0.2
@@ -429,9 +429,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   train@CatBoostClassifier-LocalClassifierPerParentNode-100-0.7-0.2:
     cmd: python train.py  --base_classifier CatBoostClassifier --model LocalClassifierPerParentNode
       --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
@@ -632,9 +632,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   evaluate@LogisticRegression-LocalClassifierPerNode-isotonic-100-0.7-0.2:
     cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
       --calibration_method isotonic --random_state 100 --train_split 0.7 --cal_split
@@ -650,9 +650,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   evaluate@LogisticRegression-LocalClassifierPerNode-None-100-0.7-0.2:
     cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
       --calibration_method None --random_state 100 --train_split 0.7 --cal_split 0.2
@@ -667,9 +667,9 @@ stages:
       size: 4935
     - path: results/calibration/
       hash: md5
-      md5: 59c585665690de8b36f476a85101429b.dir
-      size: 67500973
-      nfiles: 6
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
   train@LogisticRegression-LocalClassifierPerParentNode-100-0.7-0.2-4:
     cmd: python train.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
       --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
@@ -680,8 +680,8 @@ stages:
       size: 765270866
     - path: train.py
       hash: md5
-      md5: ba0a24f0c6830eab9264bbd190047603
-      size: 4644
+      md5: 2b8618657e5d70d77e6781d2f86631f7
+      size: 4656
   train@LogisticRegression-LocalClassifierPerNode-100-0.7-0.2-4:
     cmd: python train.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
       --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
@@ -692,8 +692,8 @@ stages:
       size: 765270866
     - path: train.py
       hash: md5
-      md5: ba0a24f0c6830eab9264bbd190047603
-      size: 4644
+      md5: 2b8618657e5d70d77e6781d2f86631f7
+      size: 4656
   calibrate@LogisticRegression-LocalClassifierPerParentNode-sigmoid-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
       --calibration_method sigmoid --n_jobs 4 --random_state 100 --train_split 0.7
@@ -701,16 +701,16 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
   calibrate@LogisticRegression-LocalClassifierPerParentNode-isotonic-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
@@ -719,16 +719,16 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
   calibrate@LogisticRegression-LocalClassifierPerParentNode-None-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
@@ -737,16 +737,16 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
   calibrate@LogisticRegression-LocalClassifierPerNode-sigmoid-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
@@ -755,16 +755,16 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
   calibrate@LogisticRegression-LocalClassifierPerNode-isotonic-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
@@ -773,16 +773,16 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
   calibrate@LogisticRegression-LocalClassifierPerNode-None-100-0.7-0.2-4:
     cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
@@ -791,14 +791,224 @@ stages:
     deps:
     - path: calibrate.py
       hash: md5
-      md5: db4343ccc0ea351a45e52091a3c7361e
-      size: 3263
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
     - path: data/complaints.csv.zip
       hash: md5
       md5: cb2a3fbca498d4071ed7a15720221418
       size: 765270866
     - path: results/train/
       hash: md5
-      md5: 91b643c739a61855b00fabfd8277d02d.dir
-      size: 14657401
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
       nfiles: 2
+  calibrate@LogisticRegression-LocalClassifierPerParentNode-beta-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method beta --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  calibrate@LogisticRegression-LocalClassifierPerParentNode-ivap-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method ivap --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  calibrate@LogisticRegression-LocalClassifierPerParentNode-cvap-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method cvap --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  calibrate@LogisticRegression-LocalClassifierPerNode-cvap-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method cvap --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  evaluate@LogisticRegression-LocalClassifierPerParentNode-cvap-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method cvap --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
+  evaluate@LogisticRegression-LocalClassifierPerNode-cvap-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method cvap --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
+  calibrate@LogisticRegression-LocalClassifierPerNode-beta-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method beta --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  calibrate@LogisticRegression-LocalClassifierPerNode-ivap-100-0.7-0.2-4:
+    cmd: python calibrate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method ivap --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split
+      0.2
+    deps:
+    - path: calibrate.py
+      hash: md5
+      md5: 26bc1959e8e7953debc325fc4d84e509
+      size: 3352
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: results/train/
+      hash: md5
+      md5: 8ba379fd411e1de2931c27d12c40f2e1.dir
+      size: 37945063
+      nfiles: 2
+  evaluate@LogisticRegression-LocalClassifierPerParentNode-beta-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method beta --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
+  evaluate@LogisticRegression-LocalClassifierPerParentNode-ivap-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerParentNode
+      --calibration_method ivap --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
+  evaluate@LogisticRegression-LocalClassifierPerNode-beta-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method beta --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12
+  evaluate@LogisticRegression-LocalClassifierPerNode-ivap-100-0.7-0.2:
+    cmd: python evaluate.py  --base_classifier LogisticRegression --model LocalClassifierPerNode
+      --calibration_method ivap --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+    - path: evaluate.py
+      hash: md5
+      md5: ebd7ffdf0919c68c3361d672833caa68
+      size: 4935
+    - path: results/calibration/
+      hash: md5
+      md5: 5b57ffce31fdadc3444772565756fa66.dir
+      size: 178326921
+      nfiles: 12

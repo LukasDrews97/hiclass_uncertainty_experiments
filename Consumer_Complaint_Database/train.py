@@ -53,6 +53,7 @@ def run(model, random_state, train_split, model_name):
     result_df.to_csv("results/benchmark/train.csv", index=False)
 
     pickle.dump(pipeline, open(model_name, 'wb'))
+    
 
 
 def create_base_classifier(args):
@@ -77,7 +78,7 @@ def create_model(args, base_classifier):
             local_classifier=base_classifier,
             n_jobs=args["n_jobs"],
             bert=False,
-            calibration_method=None,
+            calibration_method="cvap",
             probability_combiner=None,
             return_all_probabilities=True
         )
@@ -86,7 +87,7 @@ def create_model(args, base_classifier):
             local_classifier=base_classifier,
             n_jobs=args["n_jobs"],
             bert=False,
-            calibration_method=None,
+            calibration_method="cvap",
             probability_combiner=None,
             return_all_probabilities=True
         )
@@ -95,7 +96,7 @@ def create_model(args, base_classifier):
             local_classifier=base_classifier,
             n_jobs=args["n_jobs"],
             bert=False,
-            calibration_method=None,
+            calibration_method="cvap",
             probability_combiner=None,
             return_all_probabilities=True
         )
