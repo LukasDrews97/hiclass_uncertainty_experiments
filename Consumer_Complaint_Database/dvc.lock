@@ -1012,3 +1012,123 @@ stages:
       md5: 5b57ffce31fdadc3444772565756fa66.dir
       size: 178326921
       nfiles: 12
+  train@LogisticRegression-LocalClassifierPerLevel-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier LogisticRegression --model LocalClassifierPerLevel
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@MultinomialNB-LocalClassifierPerNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier MultinomialNB --model LocalClassifierPerNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@MultinomialNB-LocalClassifierPerParentNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier MultinomialNB --model LocalClassifierPerParentNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@MultinomialNB-LocalClassifierPerLevel-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier MultinomialNB --model LocalClassifierPerLevel
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@RandomForestClassifier-LocalClassifierPerNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier RandomForestClassifier --model LocalClassifierPerNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@RandomForestClassifier-LocalClassifierPerParentNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier RandomForestClassifier --model LocalClassifierPerParentNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@RandomForestClassifier-LocalClassifierPerLevel-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier RandomForestClassifier --model LocalClassifierPerLevel
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@KNeighborsClassifier-LocalClassifierPerNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier KNeighborsClassifier --model LocalClassifierPerNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@KNeighborsClassifier-LocalClassifierPerParentNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier KNeighborsClassifier --model LocalClassifierPerParentNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@KNeighborsClassifier-LocalClassifierPerLevel-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier KNeighborsClassifier --model LocalClassifierPerLevel
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@DecisionTreeClassifier-LocalClassifierPerNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier DecisionTreeClassifier --model LocalClassifierPerNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@DecisionTreeClassifier-LocalClassifierPerParentNode-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier DecisionTreeClassifier --model LocalClassifierPerParentNode
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@DecisionTreeClassifier-LocalClassifierPerLevel-100-0.7-0.2-4:
+    cmd: python train.py  --base_classifier DecisionTreeClassifier --model LocalClassifierPerLevel
+      --n_jobs 4 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@CatBoostClassifier-LocalClassifierPerNode-100-0.7-0.2-1:
+    cmd: python train.py  --base_classifier CatBoostClassifier --model LocalClassifierPerNode
+      --n_jobs 1 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
+  train@CatBoostClassifier-LocalClassifierPerParentNode-100-0.7-0.2-1:
+    cmd: python train.py  --base_classifier CatBoostClassifier --model LocalClassifierPerParentNode
+      --n_jobs 1 --random_state 100 --train_split 0.7 --cal_split 0.2
+    deps:
+    - path: data/complaints.csv.zip
+      hash: md5
+      md5: cb2a3fbca498d4071ed7a15720221418
+      size: 765270866
