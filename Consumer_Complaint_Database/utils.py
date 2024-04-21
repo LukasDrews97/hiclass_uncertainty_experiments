@@ -16,7 +16,7 @@ def load_data():
     X = data["Consumer complaint narrative"].to_numpy()
     y = data[["Product", "Sub-product"]].to_numpy()
 
-    X, y = X[:8_000], y[:8_000]
+    #X, y = X[:8_000], y[:8_000]
     return X, y
 
 def calculate_relative_cal_split(train_split, cal_split):
