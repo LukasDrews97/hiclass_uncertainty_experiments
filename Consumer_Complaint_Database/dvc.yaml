@@ -41,6 +41,8 @@ stages:
       --cal_split ${item.cal_split}
     deps:
     - data/complaints.csv.zip
+  calibrate_cleanup:
+    cmd: rm -R results/train/
   evaluate:
     matrix:
       base_classifier: ${base_classifiers}
@@ -59,3 +61,5 @@ stages:
       --cal_split ${item.cal_split}
     deps:
     - data/complaints.csv.zip
+  evaluate_cleanup:
+    cmd: rm -R results/calibration/
