@@ -7,29 +7,29 @@
 ## Installation
 ### Install pipenv
 ```bash
-$ pip install --user pipenv
+pip install --user pipenv
 ```
 ### Create environment from Pipfile
 ```bash
-$ pipenv install
+pipenv install
 ```
 ### Activate environment
 ```bash
-$ pipenv shell
+pipenv shell
 ```
 
 ## Run Experiments
 ### Open subdirectory
 ```bash
-$ cd Consumer_Complaint_Database
+cd Consumer_Complaint_Database
 ```
 
 ### Download training data from external sources
 ```bash
-$ dvc update -R .
+dvc update -R .
 ```
 
 ### Start pipeline
 ```bash
-$ dvc repro -v
+dvc repro -v
 ```
