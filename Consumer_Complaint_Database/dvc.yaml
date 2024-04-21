@@ -11,14 +11,14 @@ stages:
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
     cmd: >-
-      /usr/bin/time -v 
-      python train.py 
+      /usr/bin/time -v
+      python train.py
       --base_classifier ${item.base_classifier}
       --model ${item.model}
       --n_jobs ${item.n_jobs}
       --random_state ${item.random_state}
       --train_split ${item.train_split}
-      --cal_split ${item.cal_split} 
+      --cal_split ${item.cal_split}
       2>> results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
     deps:
       - data/complaints.csv.zip
@@ -32,15 +32,15 @@ stages:
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
     cmd: >-
-      /usr/bin/time -v 
-      python calibrate.py 
+      /usr/bin/time -v
+      python calibrate.py
       --base_classifier ${item.base_classifier}
       --model ${item.model}
       --calibration_method ${item.calibration_method}
       --n_jobs ${item.n_jobs}
       --random_state ${item.random_state}
       --train_split ${item.train_split}
-      --cal_split ${item.cal_split} 
+      --cal_split ${item.cal_split}
       2>> results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
@@ -55,8 +55,8 @@ stages:
       train_split: ${train_splits}
       cal_split: ${cal_splits}
     cmd: >-
-      /usr/bin/time -v 
-      python evaluate.py 
+      /usr/bin/time -v
+      python evaluate.py
       --base_classifier ${item.base_classifier}
       --model ${item.model}
       --calibration_method ${item.calibration_method}
