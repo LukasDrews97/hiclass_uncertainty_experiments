@@ -70,7 +70,7 @@ if __name__ == "__main__":
     train_model_name = f'results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
     cal_model_name = f'results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
     
-    if args["calibration_method"] == "None":
+    if args["calibration_method"] == "none":
         args["calibration_method"] = None
 
     run(
