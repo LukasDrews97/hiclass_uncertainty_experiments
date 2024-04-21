@@ -6,6 +6,10 @@ os.makedirs("results/", exist_ok=True)
 os.makedirs("results/train/", exist_ok=True)
 os.makedirs("results/calibration/", exist_ok=True)
 os.makedirs("results/benchmark/", exist_ok=True)
+os.makedirs("results/benchmark/memory/", exist_ok=True)
+os.makedirs("results/benchmark/memory/train/", exist_ok=True)
+os.makedirs("results/benchmark/memory/calibration/", exist_ok=True)
+os.makedirs("results/benchmark/memory/evaluation/", exist_ok=True)
 
 # create csv files
 train_headers = ['model', 'base_classifier', 'n_jobs', 'random_state', 'train_split', 'train_time']

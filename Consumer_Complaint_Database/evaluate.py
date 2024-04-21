@@ -51,6 +51,9 @@ def run(random_state, train_split, cal_split, cal_model_name, args):
 
         result_df = pd.read_csv("results/benchmark/evaluation.csv")
 
+        if args["calibration_method"] is None:
+            args["calibration_method"] = "none"
+
         for key, combiner in combiners:
             if combiner is None:
                 combined_probs = pipeline_probs
