@@ -1,6 +1,6 @@
 stages:
   prepare:
-    matrix: 
+    matrix:
       path: ${path}
     cmd: >-
       python prepare_benchmarking.py --path ${item.path}
@@ -27,7 +27,7 @@ stages:
     deps:
       - data/complaints.csv.zip
   calibrate:
-    matrix: 
+    matrix:
       base_classifier: ${base_classifiers}
       model: ${models}
       calibration_method: ${calibration_methods}
