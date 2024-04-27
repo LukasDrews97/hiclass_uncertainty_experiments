@@ -23,7 +23,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
-      2>> results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
+      2>> ${item.path}results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
     deps:
       - data/complaints.csv.zip
   calibrate:
@@ -47,7 +47,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
-      2>> results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
+      2>> ${item.path}results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
   calibrate_cleanup:
@@ -73,7 +73,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
-      2>> results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
+      2>> ${item.path}results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
   evaluate_cleanup:
