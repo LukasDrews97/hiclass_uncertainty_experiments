@@ -19,7 +19,7 @@ from utils import load_data
 
 
 
-def run(model, random_state, train_split, model_name):
+def run(model, random_state, train_split, model_name, path):
     X, y = load_data()
 
     # Split training and test subsets
@@ -38,7 +38,7 @@ def run(model, random_state, train_split, model_name):
     end_time = time.time()
     training_time = end_time - start_time
 
-    result_df = pd.read_csv("results/benchmark/train.csv")
+    result_df = pd.read_csv(path+"results/benchmark/train.csv")
 
     row = [{
         'model': args["model"],
@@ -50,7 +50,7 @@ def run(model, random_state, train_split, model_name):
     }]
 
     result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
-    result_df.to_csv("results/benchmark/train.csv", index=False)
+    result_df.to_csv(path+"results/benchmark/train.csv", index=False)
 
     pickle.dump(pipeline, open(model_name, 'wb'))
     
@@ -110,16 +110,19 @@ if __name__ == "__main__":
     parser.add_argument("--random_state", action="store", required=True, type=int)
     parser.add_argument("--train_split", action="store", required=True, type=float)
     parser.add_argument("--cal_split", action="store", required=True, type=float)
+    parser.add_argument("--path", action="store", required=False, type=str, default="./")
 
     args = vars(parser.parse_args())
 
+    path = args["path"]
     base_classifier = create_base_classifier(args)
     model = create_model(args, base_classifier)
 
-    model_name = f'results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
+    model_name = f'{path}results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
 
     run(model=model,
         random_state=args["random_state"],
         train_split=args["train_split"],
-        model_name=model_name
+        model_name=model_name,
+        path=path
     )

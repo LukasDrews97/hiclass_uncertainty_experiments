@@ -1,7 +1,9 @@
 stages:
   prepare:
+    matrix: 
+      path: ${path}
     cmd: >-
-      python prepare_benchmarking.py
+      python prepare_benchmarking.py --path ${item.path}
   train:
     matrix:
       base_classifier: ${base_classifiers}
@@ -10,6 +12,7 @@ stages:
       train_split: ${train_splits}
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
+      path: ${path}
     cmd: >-
       /usr/bin/time -v
       python train.py
@@ -19,6 +22,7 @@ stages:
       --random_state ${item.random_state}
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
+      --path ${item.path}
       2>> results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
     deps:
       - data/complaints.csv.zip
@@ -31,6 +35,7 @@ stages:
       train_split: ${train_splits}
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
+      path: ${path}
     cmd: >-
       /usr/bin/time -v
       python calibrate.py
@@ -41,11 +46,12 @@ stages:
       --random_state ${item.random_state}
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
+      --path ${item.path}
       2>> results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
   calibrate_cleanup:
-    cmd: rm -R results/train/
+    cmd: rm -R ${item.path}results/train/
   evaluate:
     matrix:
       base_classifier: ${base_classifiers}
@@ -54,6 +60,7 @@ stages:
       random_state: ${random_states}
       train_split: ${train_splits}
       cal_split: ${cal_splits}
+      path: ${path}
     cmd: >-
       /usr/bin/time -v
       python evaluate.py
@@ -63,8 +70,9 @@ stages:
       --random_state ${item.random_state}
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
+      --path ${item.path}
       2>> results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
   evaluate_cleanup:
-    cmd: rm -R results/calibration/
+    cmd: rm -R ${item.path}results/calibration/

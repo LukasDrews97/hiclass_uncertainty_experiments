@@ -22,7 +22,7 @@ from hiclass.probability_combiner import (
 
 from utils import load_data, calculate_relative_cal_split
 
-def run(random_state, train_split, cal_split, cal_model_name, args):
+def run(random_state, train_split, cal_split, cal_model_name, args, path):
     X, y = load_data()
 
     # Split training and test subsets
@@ -49,7 +49,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args):
         ("geometric", GeometricMeanCombiner(classifier=pipeline['model'])), 
         ]
 
-        result_df = pd.read_csv("results/benchmark/evaluation.csv")
+        result_df = pd.read_csv(path+"results/benchmark/evaluation.csv")
 
         for key, combiner in combiners:
             if combiner is None:
@@ -95,7 +95,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args):
             }]
 
             result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
-            result_df.to_csv("results/benchmark/evaluation.csv", index=False)
+            result_df.to_csv(path+"results/benchmark/evaluation.csv", index=False)
             
 
 if __name__ == "__main__":
@@ -106,10 +106,12 @@ if __name__ == "__main__":
     parser.add_argument("--random_state", action="store", required=True, type=int)
     parser.add_argument("--train_split", action="store", required=True, type=float)
     parser.add_argument("--cal_split", action="store", required=True, type=float)
+    parser.add_argument("--path", action="store", required=False, type=str, default="./")
 
     args = vars(parser.parse_args())
 
-    cal_model_name = f'results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
+    path = args["path"]
+    cal_model_name = f'{path}results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
     train_split = args["train_split"]
     cal_split = calculate_relative_cal_split(train_split, args["cal_split"])
 
@@ -119,5 +121,6 @@ if __name__ == "__main__":
         train_split=train_split, 
         cal_split=cal_split, 
         cal_model_name=cal_model_name,
-        args=args
+        args=args,
+        path=path
     )

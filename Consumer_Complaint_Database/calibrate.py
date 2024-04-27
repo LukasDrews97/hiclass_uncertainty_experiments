@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
 from utils import load_data, calculate_relative_cal_split
 
-def run(random_state, train_split, cal_split, train_model_name, cal_model_name, calibration_method, args):
+def run(random_state, train_split, cal_split, train_model_name, cal_model_name, calibration_method, path, args):
     X, y = load_data()
 
     # Split training and test subsets
@@ -29,7 +29,7 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
             end_time = time.time()
             training_time = end_time - start_time
         
-        result_df = pd.read_csv("results/benchmark/calibration.csv")
+        result_df = pd.read_csv(path+"results/benchmark/calibration.csv")
 
         if args["calibration_method"] is None:
             args["calibration_method"] = "none"
@@ -46,7 +46,7 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
         }]
 
         result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
-        result_df.to_csv("results/benchmark/calibration.csv", index=False)
+        result_df.to_csv(path+"results/benchmark/calibration.csv", index=False)
         
         pipeline["model"]._clean_up()
         pickle.dump(pipeline, open(cal_model_name, 'wb'))
@@ -61,14 +61,17 @@ if __name__ == "__main__":
     parser.add_argument("--random_state", action="store", required=True, type=int)
     parser.add_argument("--train_split", action="store", required=True, type=float)
     parser.add_argument("--cal_split", action="store", required=True, type=float)
+    parser.add_argument("--path", action="store", required=False, type=str, default="./")
+
 
     args = vars(parser.parse_args())
 
+    path = args["path"]
     train_split = args["train_split"]
     cal_split = calculate_relative_cal_split(train_split, args["cal_split"])
 
-    train_model_name = f'results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
-    cal_model_name = f'results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
+    train_model_name = f'{path}results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
+    cal_model_name = f'{path}results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
     
     if args["calibration_method"] == "none":
         args["calibration_method"] = None
@@ -80,5 +83,6 @@ if __name__ == "__main__":
         train_model_name,
         cal_model_name,
         calibration_method=args["calibration_method"],
-        args=args
+        args=args,
+        path=path
     )
