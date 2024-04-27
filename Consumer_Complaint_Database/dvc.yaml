@@ -51,6 +51,8 @@ stages:
     deps:
     - data/complaints.csv.zip
   calibrate_cleanup:
+    matrix:
+      path: ${path}
     cmd: rm -R ${item.path}results/train/
   evaluate:
     matrix:
@@ -75,4 +77,6 @@ stages:
     deps:
     - data/complaints.csv.zip
   evaluate_cleanup:
+    matrix:
+      path: ${path}
     cmd: rm -R ${item.path}results/calibration/
