@@ -3,6 +3,7 @@ from hiclass import LocalClassifierPerNode, LocalClassifierPerParentNode, LocalC
 from hiclass import Pipeline
 import pickle
 import time
+import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -28,7 +29,9 @@ def run(model, random_state, train_split, model_name, path):
     )
 
     # write ground truth training labels to csv
-    pd.DataFrame(y_train).to_csv(path+"results/benchmark/predictions/training_labels.csv")
+    labels_name = path+"results/benchmark/predictions/training_labels.csv"
+    if not os.path.isfile(labels_name):
+        pd.DataFrame(y_train).to_csv(labels_name)
 
 
     pipeline = Pipeline([

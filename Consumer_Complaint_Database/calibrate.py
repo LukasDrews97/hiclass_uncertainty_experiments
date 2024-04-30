@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 import time
+import os
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
 from utils import load_data, calculate_relative_cal_split
@@ -16,7 +17,9 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
     _, X_cal, _, y_cal = train_test_split(X_temp, y_temp, test_size=cal_split, random_state=random_state)
 
     # write ground truth calibration labels to csv
-    pd.DataFrame(y_cal).to_csv(path+"results/benchmark/predictions/calibration_labels.csv")
+    labels_name = path+"results/benchmark/predictions/calibration_labels.csv"
+    if not os.path.isfile(labels_name):
+        pd.DataFrame(y_cal).to_csv(labels_name)
 
 
     with open(train_model_name, 'rb') as pickle_file:

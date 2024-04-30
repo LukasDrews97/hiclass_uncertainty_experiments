@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 import json
+import os
 import numpy as np
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
@@ -33,7 +34,9 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
     X_test, _, y_test, _ = train_test_split(X_temp, y_temp, test_size=cal_split, random_state=random_state)
 
     # write ground truth test labels to csv
-    pd.DataFrame(y_test).to_csv(path+"results/benchmark/predictions/test_labels.csv")
+    labels_name = path+"results/benchmark/predictions/test_labels.csv"
+    if not os.path.isfile(labels_name):
+        pd.DataFrame(y_test).to_csv(labels_name)
 
     def get_predictions_from_proba(model, proba):
         labels = [model.classes_[level][np.argmax(proba[level], axis=1)] for level in range(model.max_levels_)]
