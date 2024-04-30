@@ -16,6 +16,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 from catboost import CatBoostClassifier
+from lightgbm import LGBMClassifier
 from utils import load_data
 
 
@@ -78,6 +79,8 @@ def create_base_classifier(args):
         return KNeighborsClassifier(n_jobs=args["n_jobs"])
     elif classifier_name == "DecisionTreeClassifier":
         return DecisionTreeClassifier(random_state=args["random_state"])
+    elif classifier_name == "LGBMClassifier":
+        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"])
 
 def create_model(args, base_classifier):
     model_name = args["model"]

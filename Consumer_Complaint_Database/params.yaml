@@ -2,7 +2,7 @@
 models: ['LocalClassifierPerNode', 'LocalClassifierPerParentNode', 'LocalClassifierPerLevel']
 
 #base_classifiers: ['CatBoostClassifier']
-base_classifiers: ['LogisticRegression', 'MultinomialNB', 'RandomForestClassifier', 'KNeighborsClassifier', 'DecisionTreeClassifier']
+base_classifiers: ['LogisticRegression', 'MultinomialNB', 'RandomForestClassifier', 'KNeighborsClassifier', 'DecisionTreeClassifier', 'LGBMClassifier']
 
 #calibration_methods: ['cvap']
 calibration_methods: ['sigmoid', 'isotonic', 'beta', 'ivap', 'cvap', 'none']

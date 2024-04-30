@@ -6,6 +6,7 @@ dependencies:
   - pip=23.3.*
   - pip:
     - "--editable=git+https://github.com/LukasDrews97/hiclass.git@uncertainty#egg=hiclass"
+    - lightgbm[scikit-learn]==4.3.*
   - dvc=3.50.*
   - pandas=2.2.*
   - scikit-learn=1.3.*

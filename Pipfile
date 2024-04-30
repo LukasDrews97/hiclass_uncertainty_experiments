@@ -10,6 +10,7 @@ pandas = "2.2.1"
 memory-profiler = "0.61.0"
 scikit-learn = "1.4.1.post1"
 catboost = "*"
+lightgbm = {version = "4.3.*", extras = ["scikit-learn"]}
 
 [dev-packages]
 
