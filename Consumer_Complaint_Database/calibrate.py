@@ -15,6 +15,9 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
 
     _, X_cal, _, y_cal = train_test_split(X_temp, y_temp, test_size=cal_split, random_state=random_state)
 
+    # write ground truth calibration labels to csv
+    pd.DataFrame(y_cal).to_csv(path+"results/benchmark/predictions/calibration_labels.csv")
+
 
     with open(train_model_name, 'rb') as pickle_file:
         pipeline = pickle.load(pickle_file)

@@ -27,6 +27,10 @@ def run(model, random_state, train_split, model_name, path):
         X, y, test_size=(1-train_split), random_state=random_state
     )
 
+    # write ground truth training labels to csv
+    pd.DataFrame(y_train).to_csv(path+"results/benchmark/predictions/training_labels.csv")
+
+
     pipeline = Pipeline([
     ('count', CountVectorizer()),
     ('tfidf', TfidfTransformer()),
