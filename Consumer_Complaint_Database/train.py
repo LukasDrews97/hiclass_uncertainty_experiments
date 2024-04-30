@@ -52,14 +52,15 @@ def run(model, random_state, train_split, model_name, path):
     result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
     result_df.to_csv(path+"results/benchmark/train.csv", index=False)
 
-    pickle.dump(pipeline, open(model_name, 'wb'))
+    with open(model_name, 'wb') as pickle_file:
+        pickle.dump(pipeline, pickle_file)
     
 
 
 def create_base_classifier(args):
     classifier_name = args["base_classifier"]
     if classifier_name == "LogisticRegression":
-        return LogisticRegression(n_jobs=args["n_jobs"], random_state=args["random_state"])
+        return LogisticRegression(n_jobs=args["n_jobs"], random_state=args["random_state"], max_iter=10000)
     elif classifier_name == "MultinomialNB":
         return MultinomialNB()
     elif classifier_name == "RandomForestClassifier":

@@ -13,6 +13,8 @@ if __name__ == "__main__":
     os.makedirs(path+"results/train/", exist_ok=True)
     os.makedirs(path+"results/calibration/", exist_ok=True)
     os.makedirs(path+"results/benchmark/", exist_ok=True)
+    os.makedirs(path+"results/benchmark/params/", exist_ok=True)
+    os.makedirs(path+"results/benchmark/predictions/", exist_ok=True)
     os.makedirs(path+"results/benchmark/memory/", exist_ok=True)
     os.makedirs(path+"results/benchmark/memory/train/", exist_ok=True)
     os.makedirs(path+"results/benchmark/memory/calibration/", exist_ok=True)

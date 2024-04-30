@@ -1,6 +1,6 @@
 import pickle
 import pandas as pd
-import os
+import json
 import numpy as np
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
@@ -39,8 +39,18 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
     with open(cal_model_name, 'rb') as pickle_file:
         pipeline = pickle.load(pickle_file)
 
+        # save pipeline params
+        params = {key:str(value) for key, value in pipeline.get_params().items()}
+        params_name = f'{path}results/benchmark/params/{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.json'
+        with open(params_name, 'w') as params_file:
+            json.dump(params, params_file, indent=4)
+
+
         pipeline_preds = pipeline.predict(X_test)
         pipeline_probs = pipeline.predict_proba(X_test)
+
+        preds_name = f'{path}results/benchmark/predictions/preds_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.npy'
+        np.save(preds_name, pipeline_preds, allow_pickle=False)
 
         combiners = [
         ("none", None),
@@ -55,7 +65,10 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             if combiner is None:
                 combined_probs = pipeline_probs
             else:
-               combined_probs = combiner.combine(pipeline_probs) 
+               combined_probs = combiner.combine(pipeline_probs)
+            
+            probs_name = f'{path}results/benchmark/predictions/probs_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
+            np.savez_compressed(probs_name, **{"lvl_"+str(lvl):arr for lvl, arr in enumerate(combined_probs)})
 
             pre = precision(y_test, pipeline_preds)
             rec = recall(y_test, pipeline_preds)

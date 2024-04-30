@@ -49,7 +49,8 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
         result_df.to_csv(path+"results/benchmark/calibration.csv", index=False)
         
         pipeline["model"]._clean_up()
-        pickle.dump(pipeline, open(cal_model_name, 'wb'))
+        with open(cal_model_name, 'wb') as pickle_file:
+            pickle.dump(pipeline, pickle_file)
 
 
 if __name__ == "__main__":
