@@ -2,6 +2,7 @@ import pickle
 import pandas as pd
 import json
 import os
+import sys
 import numpy as np
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
@@ -21,8 +22,9 @@ from hiclass.probability_combiner import (
     GeometricMeanCombiner
 )
 
-from ..FlatClassifier import FlatClassifier
-from ..utils import load_data, calculate_relative_cal_split
+sys.path.append(os.path.abspath('../'))
+from FlatClassifier import FlatClassifier
+from utils import load_data, calculate_relative_cal_split
 
 def run(random_state, train_split, cal_split, cal_model_name, args, path):
     X, y = load_data("consumer_complaints")

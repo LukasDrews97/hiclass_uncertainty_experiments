@@ -4,6 +4,7 @@ from hiclass import Pipeline
 import pickle
 import time
 import os
+import sys
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -18,9 +19,9 @@ from sklearn.tree import DecisionTreeClassifier
 from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
 
-from ..FlatClassifier import FlatClassifier
-from ..utils import load_data
-
+sys.path.append(os.path.abspath('../'))
+from FlatClassifier import FlatClassifier
+from utils import load_data
 
 def run(model, random_state, train_split, model_name, path):
     X, y = load_data("consumer_complaints")

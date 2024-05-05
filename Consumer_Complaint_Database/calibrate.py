@@ -2,9 +2,12 @@ import pickle
 import pandas as pd
 import time
 import os
+import sys
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
-from ..utils import load_data, calculate_relative_cal_split
+
+sys.path.append(os.path.abspath('../'))
+from utils import load_data, calculate_relative_cal_split
 
 def run(random_state, train_split, cal_split, train_model_name, cal_model_name, calibration_method, path, args):
     X, y = load_data("consumer_complaints")
