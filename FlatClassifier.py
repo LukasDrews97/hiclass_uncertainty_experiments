@@ -120,5 +120,5 @@ class FlatClassifier(BaseEstimator):
         # reorder probabilities using local labels
         return self._combine_and_reorder(proba)
     
-    def _clean_up():
+    def _clean_up(self):
         pass
