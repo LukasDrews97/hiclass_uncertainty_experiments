@@ -17,12 +17,13 @@ from sklearn.tree import DecisionTreeClassifier
 
 from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
-from utils import load_data
 
+from ..FlatClassifier import FlatClassifier
+from ..utils import load_data
 
 
 def run(model, random_state, train_split, model_name, path):
-    X, y = load_data()
+    X, y = load_data("consumer_complaints")
 
     # Split training and test subsets
     X_train, _, y_train, _ = train_test_split(
@@ -110,6 +111,12 @@ def create_model(args, base_classifier):
             calibration_method="cvap",
             probability_combiner=None,
             return_all_probabilities=True
+        )
+    elif model_name == "FlatClassifier":
+        return FlatClassifier(
+            local_classifier=base_classifier,
+            n_jobs=args["n_jobs"],
+            calibration_method="cvap"
         )
 
 

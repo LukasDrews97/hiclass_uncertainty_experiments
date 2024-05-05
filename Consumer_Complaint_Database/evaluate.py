@@ -21,10 +21,11 @@ from hiclass.probability_combiner import (
     GeometricMeanCombiner
 )
 
-from utils import load_data, calculate_relative_cal_split
+from ..FlatClassifier import FlatClassifier
+from ..utils import load_data, calculate_relative_cal_split
 
 def run(random_state, train_split, cal_split, cal_model_name, args, path):
-    X, y = load_data()
+    X, y = load_data("consumer_complaints")
 
     # Split training and test subsets
     _, X_temp, _, y_temp = train_test_split(
@@ -65,6 +66,9 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
         ("geometric", GeometricMeanCombiner(classifier=pipeline['model'])), 
         ]
 
+        if isinstance(pipeline["model"], FlatClassifier):
+            combiners = [("none", None)]
+
         result_df = pd.read_csv(path+"results/benchmark/evaluation.csv")
 
         for key, combiner in combiners:
@@ -82,15 +86,41 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
 
             # compute classification metrics from probabilities
             pipeline_proba_preds = get_predictions_from_proba(pipeline["model"], combined_probs)
+
+            if isinstance(pipeline["model"], FlatClassifier):
+                pipeline_proba_preds = pipeline.predict(X_test, from_proba=True)
+            else:
+                pipeline_proba_preds = get_predictions_from_proba(pipeline["model"], combined_probs)
+
             pre_p = precision(y_test, pipeline_proba_preds)
             rec_p = recall(y_test, pipeline_proba_preds)
             f1_p = f1(y_test, pipeline_proba_preds)
+
 
             avg_brier_score = multiclass_brier_score(pipeline['model'], y_test, combined_probs)
             avg_log_loss = log_loss(pipeline['model'], y_test, combined_probs)
             avg_ece = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
             avg_sce = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
             avg_ace = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
+
+
+            last_level = pipeline_preds.ndim - 1
+
+            brier_score_ll = multiclass_brier_score(pipeline['model'], y_test, combined_probs, level=last_level)
+            log_loss_ll = log_loss(pipeline['model'], y_test, combined_probs, level=last_level)
+            ece_ll = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
+            sce_ll = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
+            ace_ll = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
+
+
+            scores_to_list = lambda scores: f'[{"|".join([str(score) for score in scores])}]'
+
+            brier_score_all = multiclass_brier_score(pipeline['model'], y_test, combined_probs, agg=None)
+            log_loss_all = log_loss(pipeline['model'], y_test, combined_probs, agg=None)
+            ece_all = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+            sce_all = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+            ace_all = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+
 
             row = [{
                 'model': args["model"],
@@ -106,11 +136,21 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
                 'p_pre': pre_p,
                 'p_rec': rec_p,
                 'p_f1': f1_p,
-                'brier_score': avg_brier_score,
-                'log_loss': avg_log_loss,
-                'ece': avg_ece,
-                'sce': avg_sce,
-                'ace': avg_ace
+                'brier_score_avg': avg_brier_score,
+                'log_loss_avg': avg_log_loss,
+                'ece_avg': avg_ece,
+                'sce_avg': avg_sce,
+                'ace_avg': avg_ace,
+                'brier_score_ll': brier_score_ll,
+                'log_loss_ll': log_loss_ll,
+                'ece_ll': ece_ll,
+                'sce_ll': sce_ll,
+                'ace_ll': ace_ll,
+                'brier_score_all': scores_to_list(brier_score_all),
+                'log_loss_all': scores_to_list(log_loss_all),
+                'ece_all': scores_to_list(ece_all),
+                'sce_all': scores_to_list(sce_all),
+                'ace_all:': scores_to_list(ace_all)
             }]
 
             result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)

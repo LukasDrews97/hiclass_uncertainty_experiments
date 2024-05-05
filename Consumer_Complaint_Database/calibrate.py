@@ -4,10 +4,10 @@ import time
 import os
 from argparse import ArgumentParser
 from sklearn.model_selection import train_test_split
-from utils import load_data, calculate_relative_cal_split
+from ..utils import load_data, calculate_relative_cal_split
 
 def run(random_state, train_split, cal_split, train_model_name, cal_model_name, calibration_method, path, args):
-    X, y = load_data()
+    X, y = load_data("consumer_complaints")
 
     # Split training and test subsets
     _, X_temp, _, y_temp = train_test_split(

@@ -1,6 +1,10 @@
 import pandas as pd
 
-def load_data():
+def load_data(name):
+    if name == "consumer_complaints":
+        return _load_consumer_complaints()
+
+def _load_consumer_complaints():
     data = pd.read_csv(
     "data/complaints.csv.zip", 
     compression="zip", 
@@ -21,3 +25,4 @@ def load_data():
 
 def calculate_relative_cal_split(train_split, cal_split):
     return cal_split * (1 / (1 - train_split))
+
