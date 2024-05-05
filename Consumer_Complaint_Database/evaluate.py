@@ -96,14 +96,6 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             rec_p = recall(y_test, pipeline_proba_preds)
             f1_p = f1(y_test, pipeline_proba_preds)
 
-
-            avg_brier_score = multiclass_brier_score(pipeline['model'], y_test, combined_probs)
-            avg_log_loss = log_loss(pipeline['model'], y_test, combined_probs)
-            avg_ece = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
-            avg_sce = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
-            avg_ace = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
-
-
             last_level = pipeline_preds.ndim - 1
 
             brier_score_ll = multiclass_brier_score(pipeline['model'], y_test, combined_probs, level=last_level)
@@ -111,6 +103,19 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             ece_ll = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
             sce_ll = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
             ace_ll = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, level=last_level)
+
+            if isinstance(combined_probs, list):
+                avg_brier_score = multiclass_brier_score(pipeline['model'], y_test, combined_probs)
+                avg_log_loss = log_loss(pipeline['model'], y_test, combined_probs)
+                avg_ece = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
+                avg_sce = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
+                avg_ace = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds)
+            else:
+                avg_brier_score = brier_score_ll
+                avg_log_loss = log_loss_ll
+                avg_ece = ece_ll
+                avg_sce = sce_ll
+                avg_ace = ace_ll
 
 
             scores_to_list = lambda scores: f'[{"|".join([str(score) for score in scores])}]'
