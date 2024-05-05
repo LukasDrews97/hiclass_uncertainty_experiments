@@ -119,12 +119,18 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
 
 
             scores_to_list = lambda scores: f'[{"|".join([str(score) for score in scores])}]'
-
-            brier_score_all = multiclass_brier_score(pipeline['model'], y_test, combined_probs, agg=None)
-            log_loss_all = log_loss(pipeline['model'], y_test, combined_probs, agg=None)
-            ece_all = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
-            sce_all = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
-            ace_all = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+            if isinstance(combined_probs, list):
+                brier_score_all = multiclass_brier_score(pipeline['model'], y_test, combined_probs, agg=None)
+                log_loss_all = log_loss(pipeline['model'], y_test, combined_probs, agg=None)
+                ece_all = expected_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+                sce_all = static_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+                ace_all = adaptive_calibration_error(pipeline['model'], y_test, combined_probs, pipeline_preds, agg=None)
+            else:
+                brier_score_all = [brier_score_ll]
+                log_loss_all = [log_loss_ll]
+                ece_all = [ece_ll]
+                sce_all = [sce_ll]
+                ace_all = [ace_ll]
 
 
             row = [{
