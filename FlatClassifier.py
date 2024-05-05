@@ -75,20 +75,31 @@ class FlatClassifier(BaseEstimator):
         return res_proba
         
     def fit(self, X, y):
-        y = self._transform_labels(y, create_classes_ = True)
-        X = check_array(X, accept_sparse="csr", allow_nd=True, ensure_2d=False)
-        self.local_classifier.fit(X, y)
+        self.y_ = self._transform_labels(y, create_classes_ = True)
+        self.X_ = check_array(X, accept_sparse="csr", allow_nd=True, ensure_2d=False)
+        self.local_classifier.fit(self.X_, self.y_)
         return self
 
     def calibrate(self, X, y):
         y = self._transform_labels(y)
         X = check_array(X, accept_sparse="csr", allow_nd=True, ensure_2d=False)
-        
+
         if self.calibration_method is None:
             self.calibrator = self.local_classifier
         else:
+
+            if self.calibration_method == "cvap":
+                if isinstance(self.X_, scipy.sparse._csr.csr_matrix):
+                    self.X_cal = scipy.sparse.vstack([self.X_, X])
+                else:
+                    self.X_cal = np.vstack([self.X_, X])
+                self.y_cal = np.hstack([self.y_, y])
+            else:
+                self.X_cal = X
+                self.y_cal = y
+                
             self.calibrator = _Calibrator(estimator=self.local_classifier, method=self.calibration_method)
-            self.calibrator.fit(X, y)
+            self.calibrator.fit(self.X_cal, self.y_cal)
         return self
 
     def predict(self, X, from_proba=False):
@@ -121,4 +132,11 @@ class FlatClassifier(BaseEstimator):
         return self._combine_and_reorder(proba)
     
     def _clean_up(self):
-        pass
+        if hasattr(self, "X_"):
+            del self.X_
+        if hasattr(self, "y_"):
+            del self.y_
+        if hasattr(self, "X_cal"):
+            del self.X_cal
+        if hasattr(self, "y_cal"):
+            del self.y_cal

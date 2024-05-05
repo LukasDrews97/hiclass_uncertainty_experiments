@@ -87,8 +87,6 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             f1_ = f1(y_test, pipeline_preds)
 
             # compute classification metrics from probabilities
-            pipeline_proba_preds = get_predictions_from_proba(pipeline["model"], combined_probs)
-
             if isinstance(pipeline["model"], FlatClassifier):
                 pipeline_proba_preds = pipeline.predict(X_test, from_proba=True)
             else:
