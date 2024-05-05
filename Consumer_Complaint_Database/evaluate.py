@@ -161,7 +161,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
                 'log_loss_all': scores_to_list(log_loss_all),
                 'ece_all': scores_to_list(ece_all),
                 'sce_all': scores_to_list(sce_all),
-                'ace_all:': scores_to_list(ace_all)
+                'ace_all': scores_to_list(ace_all)
             }]
 
             result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
