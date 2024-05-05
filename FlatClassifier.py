@@ -3,6 +3,7 @@ from sklearn.utils.validation import check_array
 from hiclass._calibration.Calibrator import _Calibrator
 from hiclass.HierarchicalClassifier import make_leveled
 import numpy as np
+import scipy
 
 class FlatClassifier(BaseEstimator):
     def __init__(self, local_classifier: BaseEstimator, n_jobs: int = 1, calibration_method: str = None):
