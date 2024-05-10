@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from hiclass import LocalClassifierPerNode, LocalClassifierPerParentNode, LocalClassifierPerLevel
+#from hiclass import LocalClassifierPerNode, LocalClassifierPerParentNode, LocalClassifierPerLevel
 from hiclass import Pipeline
 import pickle
 import time
@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
+'''
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import RandomForestClassifier
@@ -18,10 +19,11 @@ from sklearn.tree import DecisionTreeClassifier
 
 from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
+'''
 
 sys.path.append(os.path.abspath('../'))
-from FlatClassifier import FlatClassifier
-from utils import load_data
+#from FlatClassifier import FlatClassifier
+from utils import load_data, create_base_classifier, create_model
 
 def run(model, random_state, train_split, model_name, path):
     X, y = load_data("consumer_complaints")
@@ -66,7 +68,7 @@ def run(model, random_state, train_split, model_name, path):
         pickle.dump(pipeline, pickle_file)
     
 
-
+'''
 def create_base_classifier(args):
     classifier_name = args["base_classifier"]
     if classifier_name == "LogisticRegression":
@@ -74,16 +76,17 @@ def create_base_classifier(args):
     elif classifier_name == "MultinomialNB":
         return MultinomialNB()
     elif classifier_name == "RandomForestClassifier":
-        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"])
+        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100, max_depth=6)
     elif classifier_name == "CatBoostClassifier":
-        return CatBoostClassifier(thread_count=args["n_jobs"], random_seed=args["random_state"], allow_writing_files=False, silent=True)
+        return CatBoostClassifier(thread_count=args["n_jobs"], random_seed=args["random_state"], allow_writing_files=False, silent=True, n_estimators=100, max_depth=6)
     elif classifier_name == "KNeighborsClassifier":
         return KNeighborsClassifier(n_jobs=args["n_jobs"])
     elif classifier_name == "DecisionTreeClassifier":
         return DecisionTreeClassifier(random_state=args["random_state"])
     elif classifier_name == "LGBMClassifier":
-        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"])
-
+        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100, max_depth=6)
+'''
+'''
 def create_model(args, base_classifier):
     model_name = args["model"]
     if model_name == "LocalClassifierPerNode":
@@ -119,6 +122,7 @@ def create_model(args, base_classifier):
             n_jobs=args["n_jobs"],
             calibration_method="cvap"
         )
+'''
 
 
 if __name__ == "__main__":
