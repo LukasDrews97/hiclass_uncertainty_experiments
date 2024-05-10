@@ -4,7 +4,7 @@
 - Linux
 - Python 3.11
 
-## Installation
+## Installation using pipenv
 ### Install pipenv
 ```bash
 pip install --user pipenv
@@ -17,6 +17,17 @@ pipenv install
 ```bash
 pipenv shell
 ```
+
+## Installation using conda
+### Create environment 
+```bash
+conda env create -f conda_env.yml
+```
+### Activate environment
+```bash
+conda activate hiclass_experiments
+```
+
 
 ## Run Experiments
 ### Open subdirectory
