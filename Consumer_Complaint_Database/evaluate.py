@@ -92,6 +92,10 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             else:
                 pipeline_proba_preds = get_predictions_from_proba(pipeline["model"], combined_probs)
 
+            # save preds from proba
+            preds_proba_name = f'{path}results/benchmark/predictions/preds_proba_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
+            np.save(preds_proba_name, pipeline_proba_preds, allow_pickle=False)
+
             pre_p = precision(y_test, pipeline_proba_preds)
             rec_p = recall(y_test, pipeline_proba_preds)
             f1_p = f1(y_test, pipeline_proba_preds)
