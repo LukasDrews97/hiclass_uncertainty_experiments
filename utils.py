@@ -44,15 +44,15 @@ def create_base_classifier(args):
     elif classifier_name == "MultinomialNB":
         return MultinomialNB()
     elif classifier_name == "RandomForestClassifier":
-        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100, max_depth=6)
+        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=50, max_depth=5, min_samples_leaf=20)
     elif classifier_name == "CatBoostClassifier":
-        return CatBoostClassifier(thread_count=args["n_jobs"], random_seed=args["random_state"], allow_writing_files=False, silent=True, n_estimators=100, max_depth=6)
+        return CatBoostClassifier(thread_count=args["n_jobs"], random_seed=args["random_state"], allow_writing_files=False, silent=True, n_estimators=50, max_depth=5)
     elif classifier_name == "KNeighborsClassifier":
         return KNeighborsClassifier(n_jobs=args["n_jobs"])
     elif classifier_name == "DecisionTreeClassifier":
         return DecisionTreeClassifier(random_state=args["random_state"])
     elif classifier_name == "LGBMClassifier":
-        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100, max_depth=6)
+        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=50, max_depth=5, min_child_samples=20)
 
 def create_model(args, base_classifier):
     model_name = args["model"]
