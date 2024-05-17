@@ -4,6 +4,7 @@ import time
 import os
 import sys
 from argparse import ArgumentParser
+from joblib import parallel_backend
 from sklearn.model_selection import train_test_split
 
 sys.path.append(os.path.abspath('../'))
@@ -34,7 +35,8 @@ def run(random_state, train_split, cal_split, train_model_name, cal_model_name, 
         training_time = 0
         if pipeline["model"].calibration_method:
             start_time = time.time()
-            pipeline.calibrate(X_cal, y_cal)
+            with parallel_backend("threading", n_jobs=args["n_jobs"]):
+                pipeline.calibrate(X_cal, y_cal)
             end_time = time.time()
             training_time = end_time - start_time
         

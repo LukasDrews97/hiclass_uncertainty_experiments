@@ -5,6 +5,7 @@ import time
 import os
 import sys
 import pandas as pd
+from joblib import parallel_backend
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
@@ -34,7 +35,8 @@ def run(model, random_state, train_split, model_name, path):
     ])
 
     start_time = time.time()
-    pipeline.fit(X_train, y_train)
+    with parallel_backend("threading", n_jobs=args["n_jobs"]):
+        pipeline.fit(X_train, y_train)
     end_time = time.time()
     training_time = end_time - start_time
 
