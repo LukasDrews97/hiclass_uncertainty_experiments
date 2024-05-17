@@ -58,8 +58,8 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
         pipeline_preds = pipeline.predict(X_test)
         pipeline_probs = pipeline.predict_proba(X_test)
 
-        preds_name = f'{path}results/benchmark/predictions/preds_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.npy'
-        np.save(preds_name, pipeline_preds, allow_pickle=False)
+        #preds_name = f'{path}results/benchmark/predictions/preds_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.npy'
+        #np.save(preds_name, pipeline_preds, allow_pickle=False)
 
         combiners = [
         ("none", None),
@@ -79,8 +79,8 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             else:
                combined_probs = combiner.combine(pipeline_probs)
             
-            probs_name = f'{path}results/benchmark/predictions/probs_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
-            np.savez_compressed(probs_name, **{"lvl_"+str(lvl):arr for lvl, arr in enumerate(combined_probs)})
+            #probs_name = f'{path}results/benchmark/predictions/probs_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
+            #np.savez_compressed(probs_name, **{"lvl_"+str(lvl):arr for lvl, arr in enumerate(combined_probs)})
 
             pre = precision(y_test, pipeline_preds)
             rec = recall(y_test, pipeline_preds)
@@ -93,8 +93,8 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
                 pipeline_proba_preds = get_predictions_from_proba(pipeline["model"], combined_probs)
 
             # save preds from proba
-            preds_proba_name = f'{path}results/benchmark/predictions/preds_proba_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
-            np.save(preds_proba_name, pipeline_proba_preds, allow_pickle=False)
+            #preds_proba_name = f'{path}results/benchmark/predictions/preds_proba_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
+            #np.save(preds_proba_name, pipeline_proba_preds, allow_pickle=False)
 
             pre_p = precision(y_test, pipeline_proba_preds)
             rec_p = recall(y_test, pipeline_proba_preds)

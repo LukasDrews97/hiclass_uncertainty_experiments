@@ -44,7 +44,7 @@ def create_base_classifier(args):
     elif classifier_name == "MultinomialNB":
         return MultinomialNB()
     elif classifier_name == "RandomForestClassifier":
-        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=50, max_depth=5, min_samples_leaf=20)
+        return RandomForestClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100)
     elif classifier_name == "CatBoostClassifier":
         return CatBoostClassifier(thread_count=args["n_jobs"], random_seed=args["random_state"], allow_writing_files=False, silent=True, n_estimators=50, max_depth=5)
     elif classifier_name == "KNeighborsClassifier":
