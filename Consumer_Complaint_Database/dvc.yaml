@@ -76,3 +76,7 @@ stages:
       2>> ${item.path}results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/complaints.csv.zip
+  evaluate_cleanup:
+    matrix:
+      path: ${path}
+    cmd: rm -R ${item.path}results/calibration/
