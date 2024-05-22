@@ -24,7 +24,7 @@ from hiclass.probability_combiner import (
 
 sys.path.append(os.path.abspath('../'))
 from FlatClassifier import FlatClassifier
-from utils import load_data, calculate_relative_cal_split
+from utils import load_data, calculate_relative_cal_split, create_reliability_diagram
 
 def run(random_state, train_split, cal_split, cal_model_name, args, path):
     X, y = load_data("consumer_complaints")
@@ -96,6 +96,45 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             #preds_proba_name = f'{path}results/benchmark/predictions/preds_proba_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
             #np.save(preds_proba_name, pipeline_proba_preds, allow_pickle=False)
 
+            # compute last level reliability diagram
+            last_level_acc, last_level_conf, _, last_level_counts = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_preds, level=pipeline["model"].max_levels_-1)
+            # compute last level reliability diagram for proba preds
+            last_level_acc_proba, last_level_conf_proba, _, last_level_counts_proba = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_proba_preds, level=pipeline["model"].max_levels_-1)
+
+
+            # compute averaged reliability diagram for pipeline preds
+            if isinstance(pipeline["model"], FlatClassifier):
+                avg_acc, avg_conf, avg_counts = last_level_acc, last_level_conf, last_level_counts
+
+            else:
+                acc, conf, counts = [], [], []
+                for level in range(pipeline["model"].max_levels_):
+                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_preds, level=level)
+                    acc.append(acc_)
+                    conf.append(conf_)
+                    counts.append(counts_)
+    
+                avg_acc = np.sum(acc, axis=0) / pipeline["model"].max_levels_
+                avg_conf = np.sum(conf, axis=0) / pipeline["model"].max_levels_
+                avg_counts = np.sum(counts, axis=0) / pipeline["model"].max_levels_
+
+            # compute averaged reliability diagram for pipeline proba preds
+            if isinstance(pipeline["model"], FlatClassifier):
+                avg_acc_proba, avg_conf_proba, avg_counts_proba = last_level_acc_proba, last_level_conf_proba, last_level_counts_proba
+
+            else:
+                acc, conf, counts = [], [], []
+                for level in range(pipeline["model"].max_levels_):
+                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_proba_preds, level=level)
+                    acc.append(acc_)
+                    conf.append(conf_)
+                    counts.append(counts_)
+    
+                avg_acc_proba = np.sum(acc, axis=0) / pipeline["model"].max_levels_
+                avg_conf_proba = np.sum(conf, axis=0) / pipeline["model"].max_levels_
+                avg_counts_proba = np.sum(counts, axis=0) / pipeline["model"].max_levels_
+
+
             pre_p = precision(y_test, pipeline_proba_preds)
             rec_p = recall(y_test, pipeline_proba_preds)
             f1_p = f1(y_test, pipeline_proba_preds)
@@ -165,7 +204,19 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
                 'log_loss_all': scores_to_list(log_loss_all),
                 'ece_all': scores_to_list(ece_all),
                 'sce_all': scores_to_list(sce_all),
-                'ace_all': scores_to_list(ace_all)
+                'ace_all': scores_to_list(ace_all),
+                'acc_ll': scores_to_list(last_level_acc),
+                'acc_proba_ll': scores_to_list(last_level_acc_proba),
+                'conf_ll': scores_to_list(last_level_conf),
+                'conf_proba_ll': scores_to_list(last_level_conf_proba),
+                'count_ll': scores_to_list(last_level_counts),
+                'count_ll_proba': scores_to_list(last_level_counts_proba),
+                'acc_avg': scores_to_list(avg_acc),
+                'acc_avg_proba': scores_to_list(avg_acc_proba),
+                'conf_avg': scores_to_list(avg_conf),
+                'conf_avg_proba': scores_to_list(avg_conf_proba),
+                'count_avg_ll': scores_to_list(avg_counts),
+                'count_avg_proba': scores_to_list(avg_counts_proba)
             }]
 
             result_df = pd.concat([result_df, pd.DataFrame(row)], ignore_index=True)
