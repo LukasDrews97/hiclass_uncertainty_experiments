@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from hiclass import LocalClassifierPerNode, LocalClassifierPerParentNode, LocalClassifierPerLevel
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
