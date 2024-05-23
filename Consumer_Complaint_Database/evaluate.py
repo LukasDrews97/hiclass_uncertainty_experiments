@@ -77,7 +77,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             if combiner is None:
                 combined_probs = pipeline_probs
             else:
-               combined_probs = combiner.combine(pipeline_probs)
+                combined_probs = combiner.combine(pipeline_probs)
             
             #probs_name = f'{path}results/benchmark/predictions/probs_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{key}.npz'
             #np.savez_compressed(probs_name, **{"lvl_"+str(lvl):arr for lvl, arr in enumerate(combined_probs)})
@@ -97,9 +97,9 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             #np.save(preds_proba_name, pipeline_proba_preds, allow_pickle=False)
 
             # compute last level reliability diagram
-            last_level_acc, last_level_conf, _, last_level_counts = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_preds, level=pipeline["model"].max_levels_-1)
+            last_level_acc, last_level_conf, _, last_level_counts = create_reliability_diagram(pipeline["model"], y_test, combined_probs, pipeline_preds, level=pipeline["model"].max_levels_-1)
             # compute last level reliability diagram for proba preds
-            last_level_acc_proba, last_level_conf_proba, _, last_level_counts_proba = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_proba_preds, level=pipeline["model"].max_levels_-1)
+            last_level_acc_proba, last_level_conf_proba, _, last_level_counts_proba = create_reliability_diagram(pipeline["model"], y_test, combined_probs, pipeline_proba_preds, level=pipeline["model"].max_levels_-1)
 
 
             # compute averaged reliability diagram for pipeline preds
@@ -109,7 +109,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             else:
                 acc, conf, counts = [], [], []
                 for level in range(pipeline["model"].max_levels_):
-                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_preds, level=level)
+                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, combined_probs, pipeline_preds, level=level)
                     acc.append(acc_)
                     conf.append(conf_)
                     counts.append(counts_)
@@ -125,7 +125,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path):
             else:
                 acc, conf, counts = [], [], []
                 for level in range(pipeline["model"].max_levels_):
-                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, pipeline_probs, pipeline_proba_preds, level=level)
+                    acc_, conf_, _, counts_ = create_reliability_diagram(pipeline["model"], y_test, combined_probs, pipeline_proba_preds, level=level)
                     acc.append(acc_)
                     conf.append(conf_)
                     counts.append(counts_)
