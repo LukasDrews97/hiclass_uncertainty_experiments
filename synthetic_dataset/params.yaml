@@ -1,0 +1,16 @@
+#models: ['LocalClassifierPerParentNode', 'LocalClassifierPerNode']
+models: ['LocalClassifierPerNode', 'LocalClassifierPerParentNode', 'LocalClassifierPerLevel', 'FlatClassifier']
+
+#base_classifiers: ['CatBoostClassifier']
+base_classifiers: ['LogisticRegression', 'MultinomialNB', 'RandomForestClassifier', 'KNeighborsClassifier', 'DecisionTreeClassifier', 'LGBMClassifier']
+
+#calibration_methods: ['cvap']
+calibration_methods: ['sigmoid', 'isotonic', 'beta', 'ivap', 'cvap', 'none']
+
+random_states: [100]
+#random_states: [100, 101, 102]
+
+train_splits: [0.60]
+cal_splits: [0.20]
+n_jobs: [8]
+path: ["./"]

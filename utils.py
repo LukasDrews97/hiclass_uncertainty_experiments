@@ -1,3 +1,4 @@
+import ast
 import pandas as pd
 import numpy as np
 from hiclass import LocalClassifierPerNode, LocalClassifierPerParentNode, LocalClassifierPerLevel
@@ -15,9 +16,13 @@ from lightgbm import LGBMClassifier
 
 from FlatClassifier import FlatClassifier
 
-def load_data(name):
+def load_data(name, seed=100):
     if name == "consumer_complaints":
         return _load_consumer_complaints()
+    if name == "synthetic_dataset":
+        return _load_synthetic_dataset()
+    if name == "synthetic_dataset_noise":
+        return _load_synthetic_dataset(seed, add_noise=True, multiplier=0.5)
 
 def _load_consumer_complaints():
     data = pd.read_csv(
@@ -38,6 +43,48 @@ def _load_consumer_complaints():
     #X, y = X[:8_000], y[:8_000]
     return X, y
 
+def _load_synthetic_dataset(seed=100, add_noise=False, multiplier=0.5):
+    data = pd.read_csv("data/platypus_diseases.csv")
+    if add_noise:
+        rng = np.random.default_rng(seed=seed)
+        fever_std = data['fever'].std()
+        size_std = data["size"].std()
+        
+        data['fever'] += rng.normal(0, multiplier*fever_std, size=(len(data)))
+        data['size'] += rng.normal(0, multiplier*size_std, size=(len(data)))
+        
+        data['stomach pain'] = add_noise_categorical(data, "stomach pain", rng, multiplier)
+        data['skin rash'] = add_noise_categorical(data, "skin rash", rng, multiplier)
+        data['cough'] = add_noise_categorical(data, "cough", rng, multiplier)
+        data['sniffles'] = add_noise_categorical(data, "sniffles", rng, multiplier)
+        data['headache'] = add_noise_categorical(data, "headache", rng, multiplier)
+    
+    x_columns = ['fever', 'diarrhea', 'stomach pain', 'skin rash', 'cough', 'sniffles', 'short breath', 'headache', 'size']
+    y_column = 'label'
+
+    X = data[x_columns].to_numpy()
+    y = data['label'].apply(lambda labels: ast.literal_eval(labels)).tolist()
+    y = np.array([synthetic_make_label_2_level(l) for l in y])
+
+    return X, y
+
+
+def add_noise_categorical(data, name, rng, factor):
+    std = data[name].std()
+    min_v = data[name].min()
+    max_v = data[name].max()
+    data = data[name].copy()
+    data += rng.normal(0, factor*std, size=(len(data)))
+    data = np.clip(data, min_v, max_v)
+    data = np.clip(np.round(data), min_v, max_v)
+    return data
+
+def synthetic_make_label_2_level(label_list):
+    if label_list[0] == 'Allergy':
+        return [label_list[0], label_list[-1]]
+    else:
+        return [label_list[0], label_list[1]]
+
 def calculate_relative_cal_split(train_split, cal_split):
     return cal_split * (1 / (1 - train_split))
 
@@ -56,7 +103,7 @@ def create_base_classifier(args):
     elif classifier_name == "DecisionTreeClassifier":
         return DecisionTreeClassifier(random_state=args["random_state"])
     elif classifier_name == "LGBMClassifier":
-        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=50, max_depth=5, min_child_samples=20)
+        return LGBMClassifier(n_jobs=args["n_jobs"], random_state=args["random_state"], n_estimators=100)
 
 def create_model(args, base_classifier):
     model_name = args["model"]
