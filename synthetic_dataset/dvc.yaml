@@ -25,7 +25,7 @@ stages:
       --path ${item.path}
       2>> ${item.path}results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
     deps:
-      - data/complaints.csv.zip
+      - data/platypus_diseases.csv
   calibrate:
     matrix:
       base_classifier: ${base_classifiers}
@@ -49,7 +49,7 @@ stages:
       --path ${item.path}
       2>> ${item.path}results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
-    - data/complaints.csv.zip
+    - data/platypus_diseases.csv
   calibrate_cleanup:
     matrix:
       path: ${path}
@@ -75,7 +75,7 @@ stages:
       --path ${item.path}
       2>> ${item.path}results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
-    - data/complaints.csv.zip
+    - data/platypus_diseases.csv
   evaluate_cleanup:
     matrix:
       path: ${path}
