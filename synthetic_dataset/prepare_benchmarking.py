@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     eval_headers = [
         'model', 'base_classifier', 'random_state', 'train_split', 'cal_split', 
-        'calibration_method', 'probability_combiner', 'precision', 'recall', 
+        'calibration_method', 'probability_combiner', 'noise', 'precision', 'recall', 
         'f1', 'p_pre', 'p_rec', 'p_f1', 'brier_score_avg', 'log_loss_avg', 'ece_avg', 'sce_avg', 'ace_avg', 
         'brier_score_ll', 'log_loss_ll', 'ece_ll', 'sce_ll', 'ace_ll',
         'brier_score_all', 'log_loss_all', 'ece_all', 'sce_all', 'ace_all', 

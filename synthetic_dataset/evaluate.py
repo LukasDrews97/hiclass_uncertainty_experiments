@@ -184,6 +184,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path, noise)
                 'cal_split': args["cal_split"],
                 'calibration_method': args["calibration_method"],
                 'probability_combiner': key,
+                'noise': noise,
                 'precision': pre,
                 'recall': rec,
                 'f1': f1_,
