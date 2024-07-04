@@ -9,6 +9,7 @@ calibration_methods: ['sigmoid', 'isotonic', 'beta', 'ivap', 'cvap', 'none']
 
 #random_states: [100]
 random_states: [100, 101, 102]
+noises: [0.00, 0.25, 0.50, 0.75, 1.0, 1.50, 2.00]
 
 train_splits: [0.60]
 cal_splits: [0.20]

@@ -16,13 +16,14 @@ from lightgbm import LGBMClassifier
 
 from FlatClassifier import FlatClassifier
 
-def load_data(name, seed=100):
+def load_data(name, seed=100, noise=0.0):
     if name == "consumer_complaints":
         return _load_consumer_complaints()
     if name == "synthetic_dataset":
-        return _load_synthetic_dataset()
-    if name == "synthetic_dataset_noise":
-        return _load_synthetic_dataset(seed, add_noise=True, multiplier=0.5)
+        if noise > 0.0:
+            return _load_synthetic_dataset(seed, add_noise=True, noise=noise)
+        else:
+            return _load_synthetic_dataset()
 
 def _load_consumer_complaints():
     data = pd.read_csv(
@@ -64,7 +65,7 @@ def _load_synthetic_dataset(seed=100, add_noise=False, multiplier=0.5):
 
     X = data[x_columns].to_numpy()
     y = data['label'].apply(lambda labels: ast.literal_eval(labels)).tolist()
-    y = np.array([synthetic_make_label_2_level(l) for l in y])
+    y = np.array([rename_empty_label(l) for l in y])
 
     return X, y
 
@@ -84,6 +85,9 @@ def synthetic_make_label_2_level(label_list):
         return [label_list[0], label_list[-1]]
     else:
         return [label_list[0], label_list[1]]
+
+def rename_empty_label(label_list, new_name="EmptyLabel"):
+    return [label if label != '' else new_name for label in label_list]
 
 def calculate_relative_cal_split(train_split, cal_split):
     return cal_split * (1 / (1 - train_split))

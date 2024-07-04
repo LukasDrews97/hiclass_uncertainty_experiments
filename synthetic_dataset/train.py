@@ -12,8 +12,8 @@ from sklearn.model_selection import train_test_split
 sys.path.append(os.path.abspath('../'))
 from utils import load_data, create_base_classifier, create_model
 
-def run(model, random_state, train_split, model_name, path):
-    X, y = load_data("synthetic_dataset")
+def run(model, random_state, train_split, model_name, path, noise):
+    X, y = load_data("synthetic_dataset", noise)
 
     # Split training and test subsets
     X_train, _, y_train, _ = train_test_split(
@@ -63,6 +63,7 @@ if __name__ == "__main__":
     parser.add_argument("--train_split", action="store", required=True, type=float)
     parser.add_argument("--cal_split", action="store", required=True, type=float)
     parser.add_argument("--path", action="store", required=False, type=str, default="./")
+    parser.add_argument("--noise", action="store", required=False, type=float, default=0.0)
 
     args = vars(parser.parse_args())
 
@@ -70,11 +71,12 @@ if __name__ == "__main__":
     base_classifier = create_base_classifier(args)
     model = create_model(args, base_classifier)
 
-    model_name = f'{path}results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}.sav'
+    model_name = f'{path}results/train/train_{args["model"]}_{args["base_classifier"]}_{args["random_state"]}_{args["noise"]}.sav'
 
     run(model=model,
         random_state=args["random_state"],
         train_split=args["train_split"],
         model_name=model_name,
-        path=path
+        path=path,
+        noise=args["noise"]
     )

@@ -13,6 +13,7 @@ stages:
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
       path: ${path}
+      noise: ${noises}
     cmd: >-
       /usr/bin/time -v
       python train.py
@@ -23,6 +24,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
+      --noise ${item.noise}
       2>> ${item.path}results/benchmark/memory/train/train_${item.model}_${item.base_classifier}_${item.random_state}.txt
     deps:
       - data/platypus_diseases.csv
@@ -36,6 +38,7 @@ stages:
       cal_split: ${cal_splits}
       n_jobs: ${n_jobs}
       path: ${path}
+      noise: ${noises}
     cmd: >-
       /usr/bin/time -v
       python calibrate.py
@@ -47,6 +50,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
+      --noise ${item.noise}
       2>> ${item.path}results/benchmark/memory/calibration/calibrate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/platypus_diseases.csv
@@ -63,6 +67,7 @@ stages:
       train_split: ${train_splits}
       cal_split: ${cal_splits}
       path: ${path}
+      noise: ${noises}
     cmd: >-
       /usr/bin/time -v
       python evaluate.py
@@ -73,6 +78,7 @@ stages:
       --train_split ${item.train_split}
       --cal_split ${item.cal_split}
       --path ${item.path}
+      --noise ${item.noise}
       2>> ${item.path}results/benchmark/memory/evaluation/evaluate_${item.model}_${item.base_classifier}_${item.calibration_method}_${item.random_state}.txt
     deps:
     - data/platypus_diseases.csv

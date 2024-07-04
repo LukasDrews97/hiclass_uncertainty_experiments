@@ -26,8 +26,8 @@ sys.path.append(os.path.abspath('../'))
 from FlatClassifier import FlatClassifier
 from utils import load_data, calculate_relative_cal_split, create_reliability_diagram
 
-def run(random_state, train_split, cal_split, cal_model_name, args, path):
-    X, y = load_data("synthetic_dataset")
+def run(random_state, train_split, cal_split, cal_model_name, args, path, noise):
+    X, y = load_data("synthetic_dataset", noise)
 
     # Split training and test subsets
     _, X_temp, _, y_temp = train_test_split(
@@ -232,11 +232,12 @@ if __name__ == "__main__":
     parser.add_argument("--train_split", action="store", required=True, type=float)
     parser.add_argument("--cal_split", action="store", required=True, type=float)
     parser.add_argument("--path", action="store", required=False, type=str, default="./")
+    parser.add_argument("--noise", action="store", required=False, type=float, default=0.0)
 
     args = vars(parser.parse_args())
 
     path = args["path"]
-    cal_model_name = f'{path}results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}.sav'
+    cal_model_name = f'{path}results/calibration/calibrate_{args["model"]}_{args["base_classifier"]}_{args["calibration_method"]}_{args["random_state"]}_{args["noise"]}.sav'
     train_split = args["train_split"]
     cal_split = calculate_relative_cal_split(train_split, args["cal_split"])
 
@@ -247,5 +248,6 @@ if __name__ == "__main__":
         cal_split=cal_split, 
         cal_model_name=cal_model_name,
         args=args,
-        path=path
+        path=path,
+        noise=args["noise"]
     )
