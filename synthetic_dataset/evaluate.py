@@ -139,7 +139,7 @@ def run(random_state, train_split, cal_split, cal_model_name, args, path, noise)
             rec_p = recall(y_test, pipeline_proba_preds)
             f1_p = f1(y_test, pipeline_proba_preds)
 
-            last_level = pipeline_preds.ndim - 1
+            last_level = pipeline_preds.shape[1] - 1
 
             brier_score_ll = multiclass_brier_score(pipeline['model'], y_test, combined_probs, level=last_level)
             log_loss_ll = log_loss(pipeline['model'], y_test, combined_probs, level=last_level)
