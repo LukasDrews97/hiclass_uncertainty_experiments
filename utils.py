@@ -53,6 +53,7 @@ def _load_synthetic_dataset(seed=100, add_noise=False, noise=0.5):
         
         data['fever'] += rng.normal(0, noise*fever_std, size=(len(data)))
         data['size'] += rng.normal(0, noise*size_std, size=(len(data)))
+        data['size'] = np.clip(data['size'], a_min=0, a_max=None)
         
         data['stomach pain'] = add_noise_categorical(data, "stomach pain", rng, noise)
         data['skin rash'] = add_noise_categorical(data, "skin rash", rng, noise)
