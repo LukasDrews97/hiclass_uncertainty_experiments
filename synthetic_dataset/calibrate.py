@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath('../'))
 from utils import load_data, calculate_relative_cal_split
 
 def run(random_state, train_split, cal_split, train_model_name, cal_model_name, calibration_method, path, noise, args):
-    X, y = load_data("synthetic_dataset", noise)
+    X, y = load_data("synthetic_dataset", random_state, noise)
 
     # Split training and test subsets
     _, X_temp, _, y_temp = train_test_split(

@@ -27,7 +27,7 @@ from FlatClassifier import FlatClassifier
 from utils import load_data, calculate_relative_cal_split, create_reliability_diagram
 
 def run(random_state, train_split, cal_split, cal_model_name, args, path, noise):
-    X, y = load_data("synthetic_dataset", noise)
+    X, y = load_data("synthetic_dataset", random_state, noise)
 
     # Split training and test subsets
     _, X_temp, _, y_temp = train_test_split(

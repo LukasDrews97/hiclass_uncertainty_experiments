@@ -44,21 +44,21 @@ def _load_consumer_complaints():
     #X, y = X[:8_000], y[:8_000]
     return X, y
 
-def _load_synthetic_dataset(seed=100, add_noise=False, multiplier=0.5):
+def _load_synthetic_dataset(seed=100, add_noise=False, noise=0.5):
     data = pd.read_csv("data/platypus_diseases.csv")
     if add_noise:
         rng = np.random.default_rng(seed=seed)
         fever_std = data['fever'].std()
         size_std = data["size"].std()
         
-        data['fever'] += rng.normal(0, multiplier*fever_std, size=(len(data)))
-        data['size'] += rng.normal(0, multiplier*size_std, size=(len(data)))
+        data['fever'] += rng.normal(0, noise*fever_std, size=(len(data)))
+        data['size'] += rng.normal(0, noise*size_std, size=(len(data)))
         
-        data['stomach pain'] = add_noise_categorical(data, "stomach pain", rng, multiplier)
-        data['skin rash'] = add_noise_categorical(data, "skin rash", rng, multiplier)
-        data['cough'] = add_noise_categorical(data, "cough", rng, multiplier)
-        data['sniffles'] = add_noise_categorical(data, "sniffles", rng, multiplier)
-        data['headache'] = add_noise_categorical(data, "headache", rng, multiplier)
+        data['stomach pain'] = add_noise_categorical(data, "stomach pain", rng, noise)
+        data['skin rash'] = add_noise_categorical(data, "skin rash", rng, noise)
+        data['cough'] = add_noise_categorical(data, "cough", rng, noise)
+        data['sniffles'] = add_noise_categorical(data, "sniffles", rng, noise)
+        data['headache'] = add_noise_categorical(data, "headache", rng, noise)
     
     x_columns = ['fever', 'diarrhea', 'stomach pain', 'skin rash', 'cough', 'sniffles', 'short breath', 'headache', 'size']
     y_column = 'label'

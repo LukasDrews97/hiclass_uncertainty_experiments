@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath('../'))
 from utils import load_data, create_base_classifier, create_model
 
 def run(model, random_state, train_split, model_name, path, noise):
-    X, y = load_data("synthetic_dataset", noise)
+    X, y = load_data("synthetic_dataset", random_state, noise)
 
     # Split training and test subsets
     X_train, _, y_train, _ = train_test_split(
